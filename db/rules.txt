@@ -1,0 +1,2 @@
+Count_person * person <= 2
+Check_PPE person helmet=1 and (safety-shoe=1 or safety-shoe=2) and (glove=1 or glove=2) and (mask=1 or eye-glass=1 or face-shield=1)

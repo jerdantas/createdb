@@ -1,0 +1,22 @@
+[
+    {
+        "allframes": 0,
+        "cameraname": "ipc127e",
+        "cameraaddr": "192.168.0.117",
+        "camerauser": "dantas",
+        "camerapw": "amesma22",
+        "customerid": 1,
+        "device": "IP",
+        "flip": 0,
+        "framerate": 5,
+        "height": 640,
+        "iso": 800,
+        "log": "collect.log",
+        "model": "model",
+        "port": 25432,
+        "serialno": 990000021,
+        "server": "setiba.joaodantas.com.br",
+        "threshold": 0.4,
+        "width": 640
+    }
+]
