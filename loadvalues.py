@@ -21,9 +21,8 @@ from lex.token_type import TokenType
 from lex.scanner import Scanner
 from analyse import AnalyseRule
 
-# Data to read must be in same directory as the database
-dburl = urlparse(settings.DB_CONNECTION_STR)
-dirname = path.dirname(dburl.path)
+# Source data folder
+dirname = settings.DATA_SOURCE
 
 
 async def store_customer():
@@ -44,6 +43,7 @@ async def store_customer():
 def set_user_pw(password: str) -> str:
     cript_password = crypt.hash(password)
     return cript_password
+
 
 async def store_user():
     f_user = path.join(dirname, 'user.json')
@@ -202,9 +202,7 @@ async def store_event():
 
     async with session:
         for event in events:
-            l1 = len(event['image'])
             event['image'] = base64.b64decode(event['image'])
-            l2 = len(event['image'])
             new_evnt: Event = Event(**event)
             session.add(new_evnt)
         await session.commit()
