@@ -1,7 +1,8 @@
 [
     {
         "customerid": 1,
-        "admin_id": 1,
+        "admin_name": "Luiz Ferrara de Almeida Cunha",
+        "admin_email": "ferrara@ferrara.com.br",
         "cnpj": "16.521.601/0006-94",
         "cust_url": "http://www.joaodantas.com.br",
         "name": "Ferrara Informática Ltda."
