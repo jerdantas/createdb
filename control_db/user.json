@@ -1,0 +1,38 @@
+[
+    {
+        "admin": 1,
+        "customer_id": 1,
+        "email": "jer.dantas@gmail.com",
+        "name": "João Eduardo de Rezende Dantas",
+        "password": "amesma",
+        "userid": 1,
+        "username": "dantas"
+    },
+    {
+        "admin": 1,
+        "customer_id": 3,
+        "email": "ferrara@ferrara.com.br",
+        "name": "Luiz Ferrara de Almeida Cunha",
+        "password": "lucas789",
+        "userid": 2,
+        "username": "luiz"
+    },
+    {
+        "admin": 0,
+        "customer_id": 1,
+        "email": "meugeniadatas@gmail.com",
+        "name": "Maria Eugênia Libânio Dantas",
+        "password": "baltimore",
+        "userid": 3,
+        "username": "meugenia"
+    },
+    {
+        "admin": 0,
+        "customer_id": 1,
+        "email": "alexdantas@gmail.com",
+        "name": "Alexandre Libânio de Rezende Dantas",
+        "password": "alex.123",
+        "userid": 4,
+        "username": "alex"
+    }
+]

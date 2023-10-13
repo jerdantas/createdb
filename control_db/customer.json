@@ -1,0 +1,34 @@
+[
+    {
+        "admin_email": "ele@joaodantas.com.br",
+        "admin_name": "João Eduardo de Rezende Dantas",
+        "cnpj": "04.798.687/0001-03",
+        "cust_url": "http://www.joaodantas.com.br",
+        "customerid": 1,
+        "name": "J E D Informática Ltda."
+    },
+    {
+        "admin_email": "jer.dantas@gmail.com",
+        "admin_name": "João Eduardo de Rezende Dantas",
+        "cnpj": "04.375.990/0001-01",
+        "cust_url": "http://www.joaodantas.com.br",
+        "customerid": 2,
+        "name": "Dantas Sistemas de Informática Ltda."
+    },
+    {
+        "admin_email": "ferrara@ferrara.co.br",
+        "admin_name": "Luiz Ferrara de Almeida Cunha",
+        "cnpj": "01928075008184",
+        "cust_url": "http://www.ferrara.com.br",
+        "customerid": 3,
+        "name": "Ferrara Informática Ltda."
+    },
+    {
+        "admin_email": "manoel@epa.com.br",
+        "admin_name": "Manoel Siqueira",
+        "cnpj": "01.928.075/0081-84",
+        "cust_url": "https://www.epa.com.br",
+        "customerid": 4,
+        "name": "D M A Distribuidora S/A"
+    }
+]

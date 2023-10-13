@@ -1,7 +1,7 @@
 [
     {
         "allframes": 0,
-        "cameraname": "ipc127e",
+        "cameraname": "local-camera",
         "cameraaddr": "192.168.0.117",
         "camerauser": "dantas",
         "camerapw": "amesma22",

@@ -1,0 +1,7 @@
+0 eye-glass 0.0
+1 face-shield 0.0
+2 glove 0.0
+3 helmet 0.0
+4 mask 0.0
+6 safety-shoe 0.0
+5 person 0.0090632 helmet 1 0.054 face-shield 1 0.0365 safety-shoe 3 0.031776 glove 0 0.034138 mask 1 0.017134 eye-glass 1 0.008902

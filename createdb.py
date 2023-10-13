@@ -7,7 +7,6 @@ import dbmodel.__all_models
 from loadvalues import load_data
 import settings
 
-
 async def create_tables() -> None:
     if path.exists(settings.DB_FILE_NAME):
         remove(settings.DB_FILE_NAME)
@@ -19,7 +18,6 @@ async def create_tables() -> None:
     print('Tabelas criadas com sucesso...')
 
     await load_data()
-
 
 if __name__ == '__main__':
     asyncio.run(create_tables())

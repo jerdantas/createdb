@@ -1,0 +1,75 @@
+[
+  {
+    "name": "Codeme",
+    "descr": "Modelo inicial desenvolvido para a Codeme",
+    "categories": [
+      {
+        "id": 0,
+        "name": "eye-glass",
+        "min_area": 0.0
+      },
+      {
+        "id": 1,
+        "name": "face-shield",
+        "min_area": 0.0
+      },
+     {
+        "id": 2,
+        "name": "glove",
+        "min_area": 0.0
+      },
+     {
+        "id": 3,
+        "name": "helmet",
+        "min_area": 0.0
+      },
+     {
+        "id": 4,
+        "name": "mask",
+        "min_area": 0.0
+      },
+     {
+        "id": 5,
+        "name": "safety-shoe",
+        "min_area": 0.0
+      },
+      {
+        "id": 5,
+        "name": "person",
+        "min_area": 0.0090632,
+        "overlapped": [
+          {
+            "by": "helmet",
+            "pos": 1,
+            "prop": 0.054
+          },
+          {
+            "by": "face-shield",
+            "pos": 1,
+            "prop": 0.0365
+          },
+          {
+            "by": "safety-shoe",
+            "pos": 3,
+            "prop": 0.031776
+          },
+          {
+            "by": "glove",
+            "pos": 0,
+            "prop": 0.034138
+          },
+          {
+            "by": "mask",
+            "pos": 1,
+            "prop": 0.017134
+          },
+          {
+            "by":"eye-glass",
+            "pos": 1,
+            "prop":0.008902
+          }
+        ]
+      }
+    ]
+  }
+]

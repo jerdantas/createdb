@@ -2,15 +2,12 @@ import base64
 import json
 from os import path
 from sqlmodel.ext.asyncio.session import AsyncSession
-from urllib.parse import urlparse
 from passlib.hash import pbkdf2_sha256 as crypt
 
 import settings
 from database import engine
 from dbmodel.customer import Customer
 from dbmodel.camera import Camera
-from dbmodel.category import Category
-from dbmodel.overlappingcategory import OverlappingCategory
 from dbmodel.event import Event
 from dbmodel.rule import Rule
 from dbmodel.alarm import Alarm
@@ -19,7 +16,8 @@ from dbmodel.user import User
 
 from lex.token_type import TokenType
 from lex.scanner import Scanner
-from analyse import AnalyseRule
+from analyserule import AnalyseRule
+from storemodels import store_models
 
 # Source data folder
 dirname = settings.DATA_SOURCE
@@ -76,93 +74,78 @@ async def store_camera():
         await session.close()
 
 
-async def store_yolo_classes():
-    f_classes = path.join(dirname, 'classes.json')
-    with open(f_classes, 'r') as fp:
-        classes: dict = json.load(fp)
-
-    session: AsyncSession = AsyncSession(engine)
-
-    async with session:
-        for k in classes.keys():
-            new_cat = Category(id=int(k), name=classes[k], min_area=0)
-            session.add(new_cat)
-        await session.commit()
-        await session.close()
-
-
-async def store_category() -> (dict[str, int], bool):
-    f_category = path.join(dirname, 'categories.txt')
-    if not path.exists(f_category):
-        print('File categories_new.txt was not found.')
-        return None, False
-
-    cat_list = {}
-    file = open(f_category, mode='r', encoding='utf-8')
-    lines = file.readlines()
-    line_no = 1
-
-    session: AsyncSession = AsyncSession(engine)
-
-    async with session:
-
-        for line in lines:
-            scan = Scanner(line)
-
-            token = scan.next_token()
-            if token.token_type != TokenType.INT:
-                print(f'Categories file: Line should start with an integer line {line_no} col {token.col}.')
-                return None, False
-            category_id = int(token.text)
-
-            token = scan.next_token()
-            if token.token_type != TokenType.WORD:
-                print(f'Categories file: Expected category name on line {line_no} col {token.col}.')
-                return None, False
-            category_name = token.text
-            cat_list[category_name] = category_id
-
-            token = scan.next_token()
-            if token.token_type != TokenType.REAL:
-                print(f'Categories file: Invalid area specification on line {line_no} col {token.col}.')
-                return None, False
-            category_area = float(token.text)
-
-            new_cat = Category(id=category_id, name=category_name, min_area=category_area)
-            session.add(new_cat)
-
-            token = scan.next_token()
-            while token.token_type != TokenType.EOT:
-                if token.token_type != TokenType.WORD:
-                    print(f'Categories file: Expected category overlapping name on line {line_no} col {token.col}.')
-                    return None, False
-                overlapping_id = cat_list[token.text]
-
-                token = scan.next_token()
-                if token.token_type != TokenType.INT:
-                    print(f'Categories file: Expected overlapping position on line {line_no} col {token.col}.')
-                    return None, False
-                over_position = int(token.text)
-
-                token = scan.next_token()
-                if token.token_type != TokenType.REAL:
-                    print(f'Categories file: Expected proportion on line {line_no} col {token.col}.')
-                    return None, False
-                proportion = float(token.text)
-
-                new_ovcat = OverlappingCategory(cat_id=category_id,
-                                                cat_ov=overlapping_id,
-                                                overlappingposition=over_position,
-                                                proportion=proportion)
-                session.add(new_ovcat)
-
-                token = scan.next_token()
-
-                await session.commit()
-
-            line_no += 1
-
-    return cat_list, True
+# async def store_category() -> (dict[str, int], bool):
+#     f_category = path.join(dirname, 'categories.txt')
+#     if not path.exists(f_category):
+#         print('File categories_new.txt was not found.')
+#         return None, False
+#
+#     cat_list = {}
+#     file = open(f_category, mode='r', encoding='utf-8')
+#     lines = file.readlines()
+#     line_no = 1
+#
+#     session: AsyncSession = AsyncSession(engine)
+#
+#     async with session:
+#
+#         for line in lines:
+#             scan = Scanner(line)
+#
+#             token = scan.next_token()
+#             if token.token_type != TokenType.INT:
+#                 print(f'Categories file: Line should start with an integer line {line_no} col {token.col}.')
+#                 return None, False
+#             category_id = int(token.text)
+#
+#             token = scan.next_token()
+#             if token.token_type != TokenType.WORD:
+#                 print(f'Categories file: Expected category name on line {line_no} col {token.col}.')
+#                 return None, False
+#             category_name = token.text
+#             cat_list[category_name] = category_id
+#
+#             token = scan.next_token()
+#             if token.token_type != TokenType.REAL:
+#                 print(f'Categories file: Invalid area specification on line {line_no} col {token.col}.')
+#                 return None, False
+#             category_area = float(token.text)
+#
+#             new_cat = Category(id=category_id, name=category_name, min_area=category_area)
+#             session.add(new_cat)
+#
+#             token = scan.next_token()
+#             while token.token_type != TokenType.EOT:
+#                 if token.token_type != TokenType.WORD:
+#                     print(f'Categories file: Expected category overlapping name on line {line_no} col {token.col}.')
+#                     return None, False
+#                 overlapping_id = cat_list[token.text]
+#
+#                 token = scan.next_token()
+#                 if token.token_type != TokenType.INT:
+#                     print(f'Categories file: Expected overlapping position on line {line_no} col {token.col}.')
+#                     return None, False
+#                 over_position = int(token.text)
+#
+#                 token = scan.next_token()
+#                 if token.token_type != TokenType.REAL:
+#                     print(f'Categories file: Expected proportion on line {line_no} col {token.col}.')
+#                     return None, False
+#                 proportion = float(token.text)
+#
+#                 new_ovcat = OverlappingCategory(cat_id=category_id,
+#                                                 cat_ov=overlapping_id,
+#                                                 overlappingposition=over_position,
+#                                                 proportion=proportion)
+#                 session.add(new_ovcat)
+#
+#                 token = scan.next_token()
+#
+#                 await session.commit()
+#
+#             line_no += 1
+#
+#     return cat_list, True
 
 
 async def store_rules(cat_list: dict[str, int]) -> bool:
@@ -248,17 +231,13 @@ async def load_data():
     await store_user()
     await store_camera()
 
-    # await store_yolo_classes()
-    # exit()
-
-    # Populates category_index table
-    cat_list, result = await store_category()
-    if not result:
+    # Populates model table
+    if not await store_models(dirname):
         return 1
 
     # fill rules table
-    if not await store_rules(cat_list):
-        return 1
+    # if not await store_rules(cat_list):
+    #     return 1
 
     await store_event()
     await store_bbox()
